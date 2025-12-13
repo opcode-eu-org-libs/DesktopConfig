@@ -1,0 +1,24 @@
+--- old/usr/share/X11/xkb/compat/mousekeys	2025-04-23 10:12:19.797570372 +0000
++++ new/usr/share/X11/xkb/compat/mousekeys	2025-04-23 10:14:03.749069365 +0000
+@@ -97,7 +97,10 @@
+ 	action = PointerButton(button=default,count=2);
+     };
+     interpret KP_Add {
+-	action = PointerButton(button=default,count=2);
++	action = PointerButton(button=4);
++    };
++    interpret KP_Enter {
++	action = PointerButton(button=5);
+     };
+ 
+     interpret KP_0 {
+@@ -197,4 +200,9 @@
+ 	indicatorDrivesKeyboard;
+ 	controls= MouseKeys;
+     };
++
++    // Use Scroll Lock as indicator for MouseKeys
++    indicator "Scroll Lock" {
++	controls= MouseKeys;
++    };
+ };

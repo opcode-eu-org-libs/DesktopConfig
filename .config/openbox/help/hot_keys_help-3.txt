@@ -1,0 +1,9 @@
+RUN PROGRAM COMMANDS
+====================
+<Win><r>        - show run command dialog
+<Win><t>        - run terminal
+<Win><c>        - show OSD clock
+<Win><v>        - paste menu
+<PrintScr>      - screenshot
+
+<Win><q>        - disable all openbox hotkeys except <Win>Esc>

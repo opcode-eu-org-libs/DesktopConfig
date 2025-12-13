@@ -1,0 +1,16 @@
+--- old/usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf	2025-04-19 16:27:23.717456166 +0000
++++ new/usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf	2025-04-21 17:20:56.856170113 +0000
+@@ -165,7 +165,7 @@
+ [Mapping analog-surround-51]
+ device-strings = surround51:%f
+ channel-map = front-left,front-right,rear-left,rear-right,front-center,lfe
+-paths-output = analog-output analog-output-lineout analog-output-speaker
++paths-output = analog-output analog-output-lineout analog-output-speaker analog-output-headphones analog-output-headphones-2
+ priority = 13
+ direction = output
+ 
+@@ -578,4 +578,3 @@
+ #description = Foobar
+ #output-mappings = analog-stereo iec958-stereo
+ #input-mappings = analog-stereo
+-

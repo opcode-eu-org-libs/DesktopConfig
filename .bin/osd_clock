@@ -1,0 +1,5 @@
+#!/bin/bash
+
+killall aosd_cat 2>/dev/null
+
+date +"%H:%M:%S %Z (%z)%n%n%Y-%m-%d, %A" | tr '\n' '\r' | sed 's/.$//' | aosd_cat -p 0 -x 100 -y 100 -e 0 -B black -b 130 -R '#00ff00' -n "DejaVu Sans Bold 32" -d 9

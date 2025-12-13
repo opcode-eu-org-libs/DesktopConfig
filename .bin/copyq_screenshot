@@ -1,0 +1,1 @@
+exec copyq -e "copy('image/png', screenshot()); popup('Screenshot copied.  ')"

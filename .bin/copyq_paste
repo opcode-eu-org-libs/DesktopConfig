@@ -1,0 +1,1 @@
+exec copyq -e "var items=[]; tab(config('clipboard_tab')); for (var i=0; i<size(); ++i) items[i]=getItem(i); var selectedIndex = menuItems(items); if (selectedIndex != -1) {copySelection(items[selectedIndex]); copy(items[selectedIndex]); paste();}"

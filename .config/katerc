@@ -1,0 +1,272 @@
+[Desktop Entry]
+DefaultProfile=
+
+[Favorite Profiles]
+Favorites=
+
+[General]
+Allow Tab Scrolling=true
+Auto Hide Tabs=false
+Close After Last=false
+Close documents with window=true
+Config Revision=10
+Cycle To First Tab=true
+Days Meta Infos=30
+Diagnostics Limit=12000
+Diff Show Style=0
+Elide Tab Text=true
+Enable Context ToolView=false
+Expand Tabs=true
+Icon size for left and right sidebar buttons=32
+Last Session=
+Modified Notification=false
+Mouse back button action=0
+Mouse forward button action=0
+Open New Tab To The Right Of Current=false
+Output History Limit=100
+Output With Date=false
+Quick Open List Mode=0
+Quick Open Search Mode=0
+Recent File List Entry Count=10
+Restore Window Configuration=true
+SDI Mode=false
+Save Meta Infos=true
+Show Full Path in Title=false
+Show Menu Bar=true
+Show Status Bar=true
+Show Symbol In Navigation Bar=true
+Show Tab Bar=true
+Show Tabs Close Button=true
+Show Url Nav Bar=true
+Show output view for message type=1
+Show text for left and right sidebar=false
+Show welcome view for new window=false
+Startup Session=manual
+Stash new unsaved files=true
+Stash unsaved file changes=false
+Sync section size with tab positions=false
+Tab Double Click New Document=true
+Tab Middle Click Close Document=true
+Tabbar Tab Limit=0
+
+[KFileDialog Settings]
+listViewIconSize=16
+
+[KTextEditor Document]
+Allow End of Line Detection=true
+Auto Detect Indent=true
+Auto Reload If State Is In Version Control=true
+Auto Save=false
+Auto Save Interval=0
+Auto Save On Focus Out=false
+BOM=false
+Backup Local=false
+Backup Prefix=
+Backup Remote=false
+Backup Suffix=~
+Camel Cursor=true
+Encoding=UTF-8
+End of Line=0
+Indent On Backspace=false
+Indent On Tab=true
+Indent On Text Paste=false
+Indentation Mode=normal
+Indentation Width=4
+Keep Extra Spaces=false
+Line Length Limit=32768
+Newline at End of File=true
+On-The-Fly Spellcheck=true
+Overwrite Mode=false
+PageUp/PageDown Moves Cursor=false
+Remove Spaces=0
+ReplaceTabsDyn=false
+Show Spaces=0
+Show Tabs=true
+Smart Home=true
+Swap Directory=
+Swap File Mode=1
+Swap Sync Interval=15
+Tab Handling=2
+Tab Width=4
+Trailing Marker Size=1
+Use Editor Config=true
+Word Wrap=false
+Word Wrap Column=180
+
+[KTextEditor Editor]
+Encoding Prober Type=0
+Fallback Encoding=UTF-8
+
+[KTextEditor Renderer]
+Animate Bracket Matching=false
+Auto Color Theme Selection=true
+Color Theme=Breeze Light
+Font=DejaVu Sans Mono,10,-1,5,50,0,0,0,0,0
+Line Height Multiplier=1
+Schema=Normal
+Show Indentation Lines=false
+Show Whole Bracket Expression=true
+Text Font=monospace,9,-1,2,400,0,0,0,0,0,0,0,0,0,0,1
+Text Font Features=
+Word Wrap Marker=false
+
+[KTextEditor View]
+Allow Mark Menu=true
+Auto Brackets=false
+Auto Center Lines=0
+Auto Completion=true
+Auto Completion Preselect First Entry=true
+Backspace Remove Composed Characters=false
+Bookmark Menu Sorting=0
+Bracket Match Preview=false
+Chars To Enclose Selection=
+Cycle Through Bookmarks=true
+Default Mark Type=1
+Dynamic Word Wrap=true
+Dynamic Word Wrap Align Indent=80
+Dynamic Word Wrap At Static Marker=false
+Dynamic Word Wrap Indicators=1
+Dynamic Wrap not at word boundaries=false
+Enable Accessibility=true
+Enable Tab completion=false
+Enter To Insert Completion=true
+Fold First Line=false
+Folding Bar=true
+Folding Preview=true
+Icon Bar=false
+Input Mode=0
+Keyword Completion=true
+Line Modification=true
+Line Numbers=true
+Max Clipboard History Entries=20
+Maximum Search History Size=100
+Mouse Paste At Cursor Position=false
+Multiple Cursor Modifier=134217728
+Persistent Selection=false
+Scroll Bar Marks=false
+Scroll Bar Mini Map All=false
+Scroll Bar Mini Map Width=60
+Scroll Bar MiniMap=true
+Scroll Bar Preview=true
+Scroll Past End=false
+Search/Replace Flags=141
+Shoe Line Ending Type in Statusbar=false
+Show Documentation With Completion=true
+Show File Encoding=true
+Show Focus Frame Around Editor=true
+Show Folding Icons On Hover Only=true
+Show Line Count=false
+Show Scrollbars=0
+Show Statusbar Dictionary=true
+Show Statusbar Highlighting Mode=true
+Show Statusbar Input Mode=true
+Show Statusbar Line Column=true
+Show Statusbar Tab Settings=true
+Show Word Count=false
+Smart Copy Cut=false
+Statusbar Line Column Compact Mode=true
+Text Drag And Drop=true
+User Sets Of Chars To Enclose Selection=
+Vi Input Mode Steal Keys=false
+Vi Relative Line Numbers=false
+Word Completion=true
+Word Completion Minimal Word Length=3
+Word Completion Remove Tail=false
+
+[Konsole]
+AutoSyncronize=true
+AutoSyncronizeMode=0
+KonsoleEscKeyBehaviour=true
+KonsoleEscKeyExceptions=vi,vim,nvim,git
+RemoveExtension=false
+RunPrefix=
+SetEditor=false
+
+[MainWindow]
+1920x1080 screen: Height=613
+1920x1080 screen: Width=1152
+1920x1080 screen: Window-Maximized=true
+2 screens: Height=991
+2 screens: Width=905
+2 screens: Window-Maximized=true
+:0.0 Height 1080=1061
+:0.0 Width 1920=1920
+HDMI-A-0 DVI-D-0 Height 1080=1009
+HDMI-A-0 DVI-D-0 Width 1920=1920
+HDMI-A-0 DVI-D-0 Window-Maximized 1920x1080=true
+HDMI-A-0 DVI-D-0 XPosition=0
+HDMI-A-0 DVI-D-0 YPosition=19
+HDMI-A-0 Height 1080=1009
+HDMI-A-0 Width 1920=1920
+HDMI-A-0 Window-Maximized 1920x1080=true
+HDMI-A-0 XPosition=0
+HDMI-A-0 YPosition=19
+Height 1080=926
+Height 600=529
+State=AAAA/wAAAAD9AAAAAAAAB4AAAAOkAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+Width 1920=1386
+Width 800=800
+
+[MainWindow][Toolbar mainToolBar]
+IconSize=32
+ToolButtonStyle=IconOnly
+
+[Printing][HeaderFooter]
+FooterBackground=211,211,211
+FooterBackgroundEnabled=false
+FooterEnabled=false
+FooterForeground=0,0,0
+FooterFormatCenter=
+FooterFormatLeft=
+FooterFormatRight=%U
+HeaderBackground=211,211,211
+HeaderBackgroundEnabled=false
+HeaderEnabled=false
+HeaderFooterFont=DejaVu Sans,10,-1,5,50,0,0,0,0,0
+HeaderForeground=0,0,0
+HeaderFormatCenter=%f
+HeaderFormatLeft=%y
+HeaderFormatRight=%p
+
+[Printing][Layout]
+BackgroundColorEnabled=false
+BoxColor=invalid
+BoxEnabled=false
+BoxMargin=6
+BoxWidth=1
+ColorScheme=Printing
+Font=DejaVu Sans Mono,10,-1,5,50,0,0,0,0,0
+
+[Printing][Text]
+Legend=false
+LineNumbers=false
+
+[Shortcuts]
+kate_mdi_focus_toolview_kate_plugin_katesearch=none
+kate_mdi_focus_toolview_kate_private_plugin_katefiletreeplugin=none
+kate_mdi_focus_toolview_kate_private_plugin_katekonsoleplugin=none
+kate_mdi_focus_toolview_kateproject=none
+kate_mdi_focus_toolview_kateprojectgit=none
+kate_mdi_focus_toolview_kateprojectinfo=none
+kate_mdi_focus_toolview_output=none
+kate_mdi_show_toolview_button_kate_plugin_katesearch=none
+kate_mdi_show_toolview_button_kate_private_plugin_katefiletreeplugin=none
+kate_mdi_show_toolview_button_kate_private_plugin_katekonsoleplugin=none
+kate_mdi_show_toolview_button_kateproject=none
+kate_mdi_show_toolview_button_kateprojectgit=none
+kate_mdi_show_toolview_button_kateprojectinfo=none
+kate_mdi_show_toolview_button_output=none
+kate_mdi_toolview_kateprojectgit=none
+kate_mdi_toolview_output=none
+
+[filetree]
+editShade=179,218,246
+listMode=false
+middleClickToClose=false
+shadingEnabled=true
+showCloseButton=false
+showFullPathOnRoots=true
+showToolbar=true
+sortRole=0
+viewShade=193,208,209

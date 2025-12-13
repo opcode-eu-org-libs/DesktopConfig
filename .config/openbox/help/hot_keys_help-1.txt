@@ -1,0 +1,15 @@
+WINDOWS AND DESKTOP SWITCHING
+=============================
+<Alt><Tab>               - switch to next windows on current desktop
+<Shift><Alt><Tab>        - switch to previous windows on current desktop
+<Alt><Ctrl><Tab>         - switch to next windows (all desktop)
+<Alt><Ctrl><Shift><Tab>  - switch to previous windows (all desktop)
+<Win><Tab>               - switch to next desktop
+<Win><Shift><Tab>        - switch to previous desktop
+<Ctrl><Fxx>              - switch to desktop xx (xx=1...6)
+<Win><d>                 - desktop and window select menu
+<Shift><Win><d>          - desktop and window select menu (with submenus)
+
+<Alt><Esc>               - hide active window
+<Alt><F4>                - close active window
+<Alt><Space>             - show window menu

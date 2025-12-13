@@ -1,0 +1,135 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=           TMUX           =-=-=-=-=-=-=-=-=-=-=-=-=
+ 
+###    wszystkie podane komendy poprzedzamy Ctrl+x (tmux prefix key)     ###
+###    komendy oznaczone ! sa niestandardowe (patrz ~/.tmux.conf)        ###
+ 
+* ogolne
+   ! wysłanie Ctrl+x do programu
+     działającego w tmux'ie                =>  Ctrl+x
+   ! ten tekst pomocy (~/.help.txt)        =>  Ctrl+h
+   ! przelaczenie obslugi myszki w tmux    =>  m
+   * lista mapowan klawiszy                =>  ?
+ 
+* sesje
+   * lista wyboru sesji                    =>  s
+   * zmiana nazwy sesji                    =>  $
+   * odlaczenie biezacego klienta          =>  d
+   * odlaczenie wskazanego klienta         =>  D
+   * blokada biezacej sesji                =>  b 
+ 
+* tworzenie, przelaczanie i zamykanie okien
+   * nowe okno                             =>  c
+   * nastepne / poprzednie okno            =>  n / p
+   * lista okien                           =>  w
+   * zamknij (zabij) okno                  =>  &
+ 
+* panele, czyli podzielone okna
+   ! podziel poziomo - nowy / dołącz            =>  h / H
+   ! podziel pionowo - nowy / dołącz            =>  v / V
+   * pokaż numeracje i przełącz na podany       =>  q
+   * zamień miejscami z następnym / poprzednim  =>  } / {
+   * przelacz panel                             =>  {strzałki}
+   * zmien rozmiar panelu                       =>  Ctrl+{strzałki}
+   ! zamknij (zabij) panel                      =>  ^
+ 
+* bufory, czyli przeszukiwanie, kopiowanie i przegladanie zawartosci okna
+   ! wejscie w tryb buforu historii        =>  Esc
+      * przeijanie                         =>  {strzałki,myszka,PgUp,PgDown}
+      * wyszukiwanie                       =>  {/ oraz n,?} 
+      ! poczatek zaznaczania               =>  {spacja,v}
+      ! skopiowanie i wyjscie z trybu      =>  {enter,y}
+      * anulowanie zaznaczenia             =>  Esc
+   ! wklejenie                             =>  P
+   ! zapis całego bufora panelu do pliku   =>  Ctrl+s
+   ! włączenie logowania panelu do pliku   =>  Ctrl+l
+   ! wyczyszczenie historii                =>  Ctrl+q
+ 
+* inne
+   * zegar w obecnym panelu                =>  t
+   ! informacja o dacie i czasie           =>  Ctrl+t
+   ! kalenarz trzymiesieczny               =>  Ctrl+c
+ 
+* komendy szybkiego dostępu (nie wymagają poprzedzania Ctrl+x)
+   ! nastepne / poprzednie okno            =>  Alt+PageUp / Alt+PageDown
+   ! przełącz panel                        =>  Alt+{strzałki}
+ 
+ 
+ 
+=-=-=-=-=-=-=-=-=-=-=-=-=           VIM            =-=-=-=-=-=-=-=-=-=-=-=-=
+ 
+###    komendy z pozycji wyliczanych jako "$" moga zostac poprzedzone    ###
+###    licznikiem wskazujacym krotnosc komendy                           ###
+ 
+* otwieranie, zapisywanie plików itp.:
+   * otwarcie pliku                              => :e plik
+   * zapisanie do bieżącego / wskazanego pliku   => :w / :w plik
+   * wstawienie zawartości pliku                 => :r plik
+ 
+* poruszanie sie (punkty skoku):
+   $ prawo / lewo / gora / dol                   => l / h / k / j
+   * poczatek linii / tesktu w linii             => 0 / ^
+   * koniec linii                                => $
+   $ nastepne / poprzednie / koniec slowa        => {W,w} / {B,b} / {E,e}
+     roznica miedzy W a w itd polaga na zakresie znakow uznawanym za slowo
+   $ znak "znak" w przód / tył                   => {t,f} znak / {T,F} znak
+     roznica miedzy t a f itd polega na punkcie zatrzymania
+ 
+* edycja:
+   $ kasowanie znaku w przód / do tyłu           => x / X
+   * kopiowanie do punktu skoku "skok"           => y skok
+   * kopiowanie i kasowanie do punktu "skok"     => d skok
+   $ kopiowanie lini                             => yy
+   $ kopiowanie i kasowanie lini                 => dd
+   * wklejanie po / przed aktualną pozycją       => p / P
+     ### zarowno komendy kopiowania jak i wklejania moga być poprzedzone ###
+     ### jednoliterowa (a-z) nazwą rejestru w którym umieszczane są dane ###
+     ###      poprzedzamy ją znakiem " i podejemy rzed licznikiem        ###
+     ### podgląd aktualnej zawartości rejestów poprzez  :registers       ###
+   $ cofnij / ponów                              => u / Ctrl+R
+   $ ponow komende                               => .
+ 
+* wyszkuwianie i zastępowanie:
+   * wyszukiwanie w przód / tył                  => {/,*} / {?,#}
+     / i ? pytaja o szukany ciąg, * i # wyszukuja slowo z pod kursora
+   * ponawianie wyszukiwania w przód / tył       => n / N
+   * zastępowanie w całym pliku                  => :%s/co/czym/g
+ 
+* tryb wizualny:
+   * zaznaczanie zwykle / blokowe / liniowe      => v / Ctrl+v / V
+   * kopiowanie zaznaczenia                      => y
+   * zastępowanie w zaznaczeniu                  => :'<,'>s/co/czym/g
+   * zwiększanie / zmniejszanie wcięcia tekstu   => > / <
+ 
+* wejscie w tryb edycji:
+   * normalny                                    => i
+   * zastępowanie                                => R
+   * (normalny) dopisywanie do linii             => A
+   * (normalny) nowa linia poniżej / powyżej     => o / O
+   * (normalny) z kasowaniem do punktu "skok"    => c skok
+ 
+* w trybie edycji przełączenie trybu wklejania
+  (bez autoformatowania itp, patrz konfig)       => <F2>
+ 
+* ukrywanie bloków kodu:
+   * ukryj / pokaż blok pod kursorem             => {zc,zC} / {zo,zO}
+     zC i zO robia to rekurencyjnie
+   * pokaż wszystko                              => zR
+ 
+* zakładki:
+   * utwożenie zakładki                          => m znak
+     jeżeli znak jest duża litera to zakładka globalna
+   * skok do zakładki / linii z zakładką         => ` znak / ' znak
+   * lista zakładek                              => :marks
+   * usunięcie wszystkich lokalnych zakładek     => :delmarks!
+     przy pomocy :delmarks można także usuwać wskazaną zakładkę
+ 
+* inne:
+   * wyłączenie zawijania linii (w podglądzie)   => :set nowrap
+   * łamanie linii wg długości linii num         => :set textwidth=num
+     num==0 wyłącza
+   * wyrównywanie tekstu (dlugosc linii num)     => :center num / :right num
+     działa na zaznaczeniu lub zakresie linii (tak jak zastępowanie)
+   * wyrównywanie tekstu (wcięcie num)           => :left num
+
+     ### aby mysz była obsługiwana przez terminal a nie vim'a            ###
+     ### należy wcisnąć Shift                                            ###

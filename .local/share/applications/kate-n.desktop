@@ -1,0 +1,9 @@
+[Desktop Entry]
+GenericName=Advanced Text Editor (new window)
+Name=Kate (new window)
+Comment=KDE Advanced Text Editor (new window)
+MimeType=text/plain;
+InitialPreference=8
+Exec=kate -n %U
+Icon=kate
+Type=Application

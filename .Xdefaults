@@ -1,0 +1,17 @@
+! utf8
+xterm.vt100.utf8: always
+xterm.vt100.utf8Title: true
+xterm.vt100.utf8Fonts: true
+
+! use TrueType font
+xterm.vt100.renderFont: true
+XTerm*faceName: Monospace
+XTerm*faceSize: 11
+
+! visual - colors, cursor, ...
+XTerm*foreground: green
+XTerm*background: black
+xterm.vt100.cursorBlink: true
+
+! set TERM env variable
+xterm.termName: xterm-256color

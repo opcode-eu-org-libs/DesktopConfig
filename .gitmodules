@@ -1,0 +1,3 @@
+[submodule ".config/conky"]
+	path = .config/conky
+	url = ../ConkyPanel

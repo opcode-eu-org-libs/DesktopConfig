@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Kate
+GenericName=Advanced Text Editor
+Comment=KDE Advanced Text Editor
+Exec=kate -b %U
+StartupNotify=true
+Icon=fbpanel-text-editor
+Type=Application
+X-DBUS-StartupType=Multi
+X-DBUS-ServiceName=org.kde.kate
+Categories=LXPANEL
+StartupWMClass=kate
+NoDisplay=true

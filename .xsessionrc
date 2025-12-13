@@ -1,0 +1,2 @@
+# set Qt applications looks and theme
+export QT_QPA_PLATFORMTHEME=kde  #=qt5ct / =qt6ct don't work correctly in Debian Trixie

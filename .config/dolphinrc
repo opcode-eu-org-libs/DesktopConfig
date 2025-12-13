@@ -1,0 +1,73 @@
+[$Version]
+update_info=dolphin_detailsmodesettings.upd:rename-leading-padding
+
+[Desktop Entry]
+DefaultProfile=
+
+[DetailsMode]
+ExpandableFolders=true
+HighlightEntireRow=false
+LeftPadding=0
+RightPadding=0
+
+[Favorite Profiles]
+Favorites=
+
+[General]
+AutoExpandFolders=true
+BrowseThroughArchives=true
+EditableUrl=true
+FilterBar=true
+OpenNewTabAfterLastTab=true
+RememberOpenedTabs=false
+RenameInline=true
+ShowCopyMoveMenu=true
+ShowFullPath=true
+ShowFullPathInTitlebar=true
+ShowSelectionToggle=false
+ShowStatusBar=FullWidth
+ShowToolTips=true
+ShowZoomSlider=true
+SortingChoice=CaseSensitiveSorting
+Version=202
+ViewPropsMode=ManualOrGlobal
+ViewPropsTimestamp=2015,9,6,22,5,52
+
+[IconsMode]
+PreviewSize=224
+
+[InformationPanel]
+dateFormat=ShortFormat
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+listViewIconSize=16
+
+[KPropertiesDialog]
+1920x1080 screen: Height=466
+1920x1080 screen: Width=432
+2 screens: Height=622
+2 screens: Width=481
+
+[MainWindow][Toolbar mainToolBar]
+ToolButtonStyle=IconOnly
+
+[MainWindow][Toolbar searchToolBar]
+ToolButtonStyle=IconOnly
+
+[Notification Messages]
+ConfirmRenameFileType=false
+
+[PreviewSettings]
+Plugins=blenderthumbnail,djvuthumbnail,imagethumbnail,jpegthumbnail,windowsimagethumbnail,gsthumbnail,svgthumbnail,textthumbnail,ffmpegthumbs,webarchivethumbnail
+
+[SettingsDialog]
+Height 1080=460
+Width 1920=578
+
+[Toolbar mainToolBar]
+ToolButtonStyle=IconOnly
+
+[VersionControl]
+enabledPlugins=Subversion,Mercurial,Git

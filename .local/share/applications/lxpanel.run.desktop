@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Exec=gexec
+Icon=fbpanel-run
+Name=Run ...
+Categories=LXPANEL
