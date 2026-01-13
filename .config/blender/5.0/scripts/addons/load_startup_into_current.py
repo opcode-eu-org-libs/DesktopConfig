@@ -57,8 +57,8 @@ class LoadStartupSettings(bpy.types.Operator):
         # clear after import
         
         bpy.data.batch_remove(ids=(data_to.scenes[0],))
-        # bpy.ops.workspace.delete()  # blender 3.4 crash on this .. so remove workspace (and cleanup) manually
-        # bpy.ops.outliner.orphans_purge(do_recursive=True)
+        bpy.ops.workspace.delete()
+        bpy.ops.outliner.orphans_purge(do_recursive=True)
         
         return {'FINISHED'}
 
