@@ -73,7 +73,9 @@ fi
 # search and replace
 rgrep() { grep -R "$@" .; }
 regrep() { egrep -R "$@" .; }
-ggrep() { (git ls-tree -r HEAD --name-only; git ls-files --others --exclude-standard) | while read f; do [ -f "$f" ] &&  grep -H "$@" "$f"; done }
+alias 'ggrep'="git grep"
+# ggrep() { (git ls-tree -r HEAD --name-only; git ls-files --others --exclude-standard) | while read f; do [ -f "$f" ] &&  grep -H "$@" "$f"; done }
+
 rreplace() {
 	if [ $# -lt 2 ]; then
 		echo USAGE: $0 str1 str2 [sep]
@@ -104,6 +106,13 @@ pause() { kill -STOP $1; read x; kill -CONT $1; };
 # diff for binary files
 hdiff() { f1=$1; f2=$2; shift 2; diff $@ <(xxd "$f1") <(xxd "$f2"); }
 
+# git command for configuration files (used .config_git instead of .git to hide using git in dolphin and other toold looking for .git)
+cgit() {
+	local work_tree=$( find_work_tree() { if [ -d .config_git ]; then echo $PWD; elif [ "$PWD" != "/" ]; then cd ..; find_work_tree; fi; }; find_work_tree )
+	git --git-dir=$work_tree/.config_git --work-tree=$work_tree "$@"
+}
+[ -f /usr/share/bash-completion/completions/git ] && . /usr/share/bash-completion/completions/git && __git_complete cgit git
+
 # cp, mv, rm asks about deleting/overwriting files
 alias 'cp'="cp -i"
 alias 'mv'="mv -i"
@@ -124,11 +133,13 @@ pdf2gray() { gs -sOutputFile="$2"  -sDEVICE=pdfwrite  -sColorConversionStrategy=
 
 # others
 alias sigrok=pulseview
-alias y="yt-dlp --prefer-free-formats -f 'bv*+ba[format_note*=original]/bv*+ba/b'"
+alias y="yt-dlp --js-runtimes node --remote-components ejs:github --prefer-free-formats -f 'bv*+ba[format_note*=original]/bv*+ba/b'"
 alias yy="y -f 'bv[height<=1080]+ba[format_note*=original]/bv[height<=1080]+ba/b[height<=1080]'"
 alias yys1='yy --write-auto-subs --write-subs --sub-langs "pl-orig,pl,en-orig,en"'
 alias yys2='yy --write-auto-subs --write-subs --sub-langs "pl-orig,en-orig,en"'
 
+# journalctl with linewrap
+export SYSTEMD_LESS=FRXM
 
 #
 # settings for pass command (http://www.passwordstore.org/)

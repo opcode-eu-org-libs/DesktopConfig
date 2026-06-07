@@ -1,0 +1,23 @@
+[Desktop Entry]
+DefaultProfile=Default.profile
+
+[Favorite Profiles]
+Favorites=
+
+[General]
+ConfigVersion=1
+
+[KonsoleWindow]
+RememberWindowSize=false
+ShowWindowTitleOnTitleBar=true
+
+[MainWindow]
+MenuBar=Disabled
+RestorePositionForNextInstance=false
+default=default
+
+[ThumbnailsSettings]
+EnableThumbnails=false
+
+[UiSettings]
+ColorScheme=Krita dark

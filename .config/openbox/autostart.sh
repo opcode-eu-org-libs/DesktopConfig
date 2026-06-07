@@ -34,6 +34,54 @@ xhost +localhost
 # dameon notifications... otherwise programs may hang when trying to send them via dbus...
 systemctl --user restart xfce4-notifyd
 
+
+# function for window search
+# $1 - regexp for WM_CLASS, $2 - regexp for whole line
+win_find() {
+	wmctrl -lxp | awk '$4 ~ "'"$1"'" && $0 ~ "'"$2"'" {print $1}';
+}
+
+# functions for closing (hiding in the tray), minimizing, and maximizing windows
+win_close() {
+	[ "$1" != "" ] && wmctrl -ic $1
+}
+win_hide() {
+	[ "$1" != "" ] && wmctrl -b add,hidden -ir $1
+}
+win_maximize() {
+	[ "$1" != "" ] && wmctrl -b add,maximized_vert,maximized_horz -ir $1
+}
+
+# function waits for a window to appear and returns its ID.
+# $1 - step time [s], $2 - number of steps
+# $3 - regexp for WM_CLASS, $4 - regexp for the entire line
+win_wait() {
+	count=0; win=""
+	while [ "$win" = "" -a $count -lt $2 ]; do
+		count=$(( $count + 1 ))
+		win=`win_find "$3" "$4"`
+		sleep $1
+	done
+	echo $win
+}
+
+# functions that wait for the specified window, and then
+# close it (hide it in the tray) and minimize it
+# arguments as for win_wait
+win_wait_and_close() {
+	win=`win_wait $@`
+	if [ "$win" != "" ]; then
+		wmctrl -ic $win
+	fi
+}
+win_wait_and_hide() {
+	win=`win_wait $@`
+	if [ "$win" != "" ]; then
+		wmctrl -b add,hidden -ir $win
+	fi
+}
+
+
 # enable local configuration
 # variables from this file are used below:
 #   WALLPAPER_PATH    - if not empty, uses the wallpaper file path
@@ -55,77 +103,44 @@ fi
 LANG=C.UTF8 LC_TIME=en_DK.UTF-8 TZ=Europe/Warsaw lxpanel &
 
 # start system monitor widget
-conky -c ~/.config/conky/bottom_panel.conf &
+( sleep 1; conky -c ~/.config/conky/bottom_panel.conf ) &
 
 # start clipboard manager
 (
 	export -n XDG_RUNTIME_DIR
-	export -n DBUS_SESSION_BUS_ADDRESS
 	export -n QT_QPA_PLATFORMTHEME
+	export DBUS_SESSION_BUS_ADDRESS=disabled:
 	exec copyq
 ) &
 
 # start default systray applications and hide their windows
 if [ "$DONT_RUN_DEFAPPS" != "true" ] ; then
-	for a in ${DEFAPPS:-claws-mail psi-plus linphone}; do
-		$a &
+	for a in ${DEFAPPS:-thunderbird}; do
+		case $a in
+			thunderbird)
+				DBUS_SESSION_BUS_ADDRESS=disabled: birdtray &
+				;;
+			claws-mail)
+				$a &
+				# maximize and hide Claws-mail
+				( win=`win_wait 0.2 44 'claws-mail.Claws-mail' 'Claws Mail'`; win_maximize $win; win_close $win; ) &
+				;;
+			psi-plus)
+				$a &
+				# minimize Psi conference rooms and chats window
+				( win_hide `win_wait 0.2 44 'tabs[.]psi'`; ) &
+				;;
+			linphone)
+				$a &
+				# hide Linphone window in the system tray on startup
+				# (it doesn't have this option, but sending it close will suffice)
+				( win_close `win_wait 0.2 44 'linphone[.]Linphone' 'Linphone$'`; ) &
+				;;
+			*)
+				$a &
+				;;
+		esac
 	done
-	
-	# function for window search
-	# $1 - regexp for WM_CLASS, $2 - regexp for whole line
-	win_find() {
-		wmctrl -lxp | awk '$4 ~ "'"$1"'" && $0 ~ "'"$2"'" {print $1}';
-	}
-	
-	# functions for closing (hiding in the tray), minimizing, and maximizing windows
-	win_close() {
-		[ "$1" != "" ] && wmctrl -ic $1
-	}
-	win_hide() {
-		[ "$1" != "" ] && wmctrl -b add,hidden -ir $1
-	}
-	win_maximize() {
-		[ "$1" != "" ] && wmctrl -b add,maximized_vert,maximized_horz -ir $1
-	}
-	
-	# function waits for a window to appear and returns its ID.
-	# $1 - step time [s], $2 - number of steps
-	# $3 - regexp for WM_CLASS, $4 - regexp for the entire line
-	win_wait() {
-		count=0; win=""
-		while [ "$win" = "" -a $count -lt $2 ]; do
-			count=$(( $count + 1 ))
-			win=`win_find "$3" "$4"`
-			sleep $1
-		done
-		echo $win
-	}
-	
-	# functions that wait for the specified window, and then
-	# close it (hide it in the tray) and minimize it
-	# arguments as for win_wait
-	win_wait_and_close() {
-		win=`win_wait $@`
-		if [ "$win" != "" ]; then
-			wmctrl -ic $win
-		fi
-	}
-	win_wait_and_hide() {
-		win=`win_wait $@`
-		if [ "$win" != "" ]; then
-			wmctrl -b add,hidden -ir $win
-		fi
-	}
-	
-	# hide Linphone window in the system tray on startup
-	# (it doesn't have this option, but sending it close will suffice)
-	( win_close `win_wait 0.2 44 'linphone[.]Linphone' 'Linphone$'`; ) &
-	
-	# minimize Psi conference rooms and chats window
-	( win_hide `win_wait 0.2 44 'tabs[.]psi'`; ) &
-	
-	# maximize and hide Claws-mail
-	( win=`win_wait 0.2 44 'claws-mail.Claws-mail' 'Claws Mail'`; win_maximize $win; win_close $win; ) &
 fi
 
 # kill empty black window (Debian Trixie)

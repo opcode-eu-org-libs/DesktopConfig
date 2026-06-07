@@ -12,8 +12,7 @@
 
 <focus>
   <focusNew>yes</focusNew>
-  <!-- always try to focus new windows when they appear. other rules do
-       apply -->
+  <!-- always try to focus new windows when they appear. other rules do apply -->
   <followMouse>no</followMouse>
   <!-- move focus to a window when you move the mouse into it -->
   <focusLast>yes</focusLast>
@@ -33,8 +32,7 @@
   <policy>Smart</policy>
   <!-- 'Smart' or 'UnderMouse' -->
   <center>yes</center>
-  <!-- whether to place windows in the center of the free area found or
-       the top left corner -->
+  <!-- whether to place windows in the center of the free area found or the top left corner -->
   <monitor>Mouse</monitor>
   <!-- with Smart placement on a multi-monitor system, try to place new windows
        on: 'Any' - any monitor, 'Mouse' - where the mouse is, 'Active' - where
@@ -65,56 +63,38 @@
   <font place="ActiveWindow">
     <name>sans</name>
     <size>8</size>
-    <!-- font size in points -->
     <weight>bold</weight>
-    <!-- 'bold' or 'normal' -->
     <slant>normal</slant>
-    <!-- 'italic' or 'normal' -->
   </font>
   <font place="InactiveWindow">
     <name>sans</name>
     <size>8</size>
-    <!-- font size in points -->
     <weight>bold</weight>
-    <!-- 'bold' or 'normal' -->
     <slant>normal</slant>
-    <!-- 'italic' or 'normal' -->
   </font>
   <font place="MenuHeader">
     <name>sans</name>
     <size>9</size>
-    <!-- font size in points -->
     <weight>normal</weight>
-    <!-- 'bold' or 'normal' -->
     <slant>normal</slant>
-    <!-- 'italic' or 'normal' -->
   </font>
   <font place="MenuItem">
     <name>sans</name>
     <size>9</size>
-    <!-- font size in points -->
     <weight>normal</weight>
-    <!-- 'bold' or 'normal' -->
     <slant>normal</slant>
-    <!-- 'italic' or 'normal' -->
   </font>
   <font place="ActiveOnScreenDisplay">
     <name>sans</name>
     <size>9</size>
-    <!-- font size in points -->
     <weight>bold</weight>
-    <!-- 'bold' or 'normal' -->
     <slant>normal</slant>
-    <!-- 'italic' or 'normal' -->
   </font>
   <font place="InactiveOnScreenDisplay">
     <name>sans</name>
     <size>9</size>
-    <!-- font size in points -->
     <weight>bold</weight>
-    <!-- 'bold' or 'normal' -->
     <slant>normal</slant>
-    <!-- 'italic' or 'normal' -->
   </font>
 </theme>
 
@@ -169,69 +149,117 @@
   <right>0</right>
 </margins>
 
-<dock>
-  <position>TopLeft</position>
-  <!-- (Top|Bottom)(Left|Right|)|Top|Bottom|Left|Right|Floating -->
-  <floatingX>0</floatingX>
-  <floatingY>0</floatingY>
-  <noStrut>no</noStrut>
-  <stacking>Above</stacking>
-  <!-- 'Above', 'Normal', or 'Below' -->
-  <direction>Vertical</direction>
-  <!-- 'Vertical' or 'Horizontal' -->
-  <autoHide>no</autoHide>
-  <hideDelay>300</hideDelay>
-  <!-- in milliseconds (1000 = 1 second) -->
-  <showDelay>300</showDelay>
-  <!-- in milliseconds (1000 = 1 second) -->
-  <moveButton>Middle</moveButton>
-  <!-- 'Left', 'Middle', 'Right' -->
-</dock>
-
 <keyboard>
     <!-- SEE:
              * http://openbox.org/wiki/Help:Actions
              * http://openbox.org/wiki/Help:Bindings
     -->
-  <chainQuitKey>W-Escape</chainQuitKey>
+  <!--  Break any openbox chroot keys chain  -->
+  <chainQuitKey>W-S-Scroll_Lock</chainQuitKey>
 
+  <!--  Disable openbox hotkeys  -->
+  <keybind key="W-Scroll_Lock" chroot="true" />
+  
+  <!--  RUN COMMAND  -->
+  <keybind key="W-r"><!-- Run -->
+    <action name="Execute">
+      <command>rofi_run.sh</command>
+    </action>
+  </keybind>
+  <keybind key="W-t"><!-- Terminal -->
+    <action name="Execute">
+      <command>konsole</command>
+    </action>
+  </keybind>
+  <keybind key="W-f"><!-- File manager -->
+    <action name="Execute">
+      <command>dolphin</command>
+    </action>
+  </keybind>
+  <keybind key="W-e"><!-- text Editor -->
+    <action name="Execute">
+      <command>kate</command>
+    </action>
+  </keybind>
+  <keybind key="W-b"><!-- web Browser -->
+    <action name="Execute">
+      <command>firefox</command>
+    </action>
+  </keybind>
+  <keybind key="W-a"><!-- cAlculator -->
+    <action name="Execute">
+      <command>calculator</command>
+    </action>
+  </keybind>
+  <keybind key="W-c"><!-- Clock -->
+    <action name="Execute">
+      <command>osd_clock</command>
+    </action>
+  </keybind>
+   <keybind key="W-m"><!-- e-Mail client -->
+    <action name="Execute">
+      <command>birdtray -s</command>
+    </action>
+  </keybind>
+  <keybind key="W-v">
+    <action name="Execute">
+      <command>copyq_paste</command>
+    </action>
+  </keybind>
+  <keybind key="Print">
+    <action name="Execute">
+      <command>copyq_screenshot</command>
+    </action>
+  </keybind>
+  
+  <keybind key="W-A-Return">
+    <action name="Execute">
+      <command>rofi_run.sh</command>
+    </action>
+  </keybind>
+  <keybind key="W-A-space">
+    <action name="Execute">
+      <command>konsole</command>
+    </action>
+  </keybind>
+  
   <!-- Keybindings for desktop switching -->
-  <keybind key="W-Tab">
+  <keybind key="W-A-Tab">
     <action name="DesktopNext">
       <wrap>yes</wrap>
     </action>
   </keybind>
-  <keybind key="W-S-Tab">
+  <keybind key="W-S-A-Tab">
     <action name="DesktopPrevious">
       <wrap>yes</wrap>
     </action>
   </keybind>
-  <keybind key="C-F1">
+  <keybind key="W-F1">
     <action name="Desktop">
       <desktop>1</desktop>
     </action>
   </keybind>
-  <keybind key="C-F2">
+  <keybind key="W-F2">
     <action name="Desktop">
       <desktop>2</desktop>
     </action>
   </keybind>
-  <keybind key="C-F3">
+  <keybind key="W-F3">
     <action name="Desktop">
       <desktop>3</desktop>
     </action>
   </keybind>
-  <keybind key="C-F4">
+  <keybind key="W-F4">
     <action name="Desktop">
       <desktop>4</desktop>
     </action>
   </keybind>
-  <keybind key="C-F5">
+  <keybind key="W-F5">
     <action name="Desktop">
       <desktop>5</desktop>
     </action>
   </keybind>
-  <keybind key="C-F6">
+  <keybind key="W-F6">
     <action name="Desktop">
       <desktop>6</desktop>
     </action>
@@ -247,17 +275,68 @@
     </action>
   </keybind>
 
-  <!-- Keybindings for windows -->
-  <keybind key="A-F4">
-    <action name="Close"/>
+  <!-- Keybindings for window switching -->
+  <keybind key="W-Tab">
+    <action name="NextWindow">
+      <finalactions>
+        <action name="Focus"/>
+        <action name="Raise"/>
+        <action name="Unshade"/>
+      </finalactions>
+    </action>
   </keybind>
-  <keybind key="A-Escape">
+  <keybind key="W-S-Tab">
+    <action name="PreviousWindow">
+      <finalactions>
+        <action name="Focus"/>
+        <action name="Raise"/>
+        <action name="Unshade"/>
+      </finalactions>
+    </action>
+  </keybind>
+  <keybind key="W-C-Tab">
+    <action name="NextWindow">
+        <allDesktops>yes</allDesktops>
+        <raise>yes</raise>
+    </action>
+  </keybind>
+  <keybind key="W-C-S-Tab">
+    <action name="PreviousWindow">
+        <allDesktops>yes</allDesktops>
+        <raise>yes</raise>
+    </action>
+  </keybind>
+
+  <!-- Keybindings for windows -->
+  <keybind key="W-Escape">
     <action name="Lower"/>
     <action name="FocusToBottom"/>
     <action name="Unfocus"/>
   </keybind>
-  <keybind key="A-space">
+  <keybind key="W-C-Escape">
+    <action name="Iconify"/>
+  </keybind>
+  <keybind key="W-Return">
+    <action name="ToggleMaximize"/>
+  </keybind>
+  <keybind key="W-space">
     <action name="ShowMenu"><menu>client-menu</menu></action>
+  </keybind>
+  
+  <keybind key="W-q">
+    <action name="If">
+      <!-- disable close for thunderbird due to birdtray systray support -->
+      <query>
+        <class>thunderbird-default</class>
+        <role>3pane</role>
+      </query>
+      <then>
+        <action name="Iconify"/>
+      </then>
+      <else>
+        <action name="Close"/>
+      </else>
+    </action>
   </keybind>
 
   <keybind key="W-C-F1">
@@ -510,78 +589,6 @@
     </keybind>
   </keybind>
     
-  <!-- Keybindings for window switching -->
-  <keybind key="A-Tab">
-    <action name="NextWindow">
-      <finalactions>
-        <action name="Focus"/>
-        <action name="Raise"/>
-        <action name="Unshade"/>
-      </finalactions>
-    </action>
-  </keybind>
-  <keybind key="A-S-Tab">
-    <action name="PreviousWindow">
-      <finalactions>
-        <action name="Focus"/>
-        <action name="Raise"/>
-        <action name="Unshade"/>
-      </finalactions>
-    </action>
-  </keybind>
-  <keybind key="A-C-Tab">
-    <action name="NextWindow">
-        <allDesktops>yes</allDesktops>
-        <raise>yes</raise>
-    </action>
-  </keybind>
-  <keybind key="A-C-S-Tab">
-    <action name="PreviousWindow">
-        <allDesktops>yes</allDesktops>
-        <raise>yes</raise>
-    </action>
-  </keybind>
-
-  <!--  disable openbox hotkeys  -->
-  <keybind key="W-q" chroot="true" />
-  
-  <!--  RUN COMMAND  -->
-  <keybind key="W-r">
-    <action name="Execute">
-      <command>gexec</command>
-    </action>
-  </keybind>
-  <keybind key="A-F2">
-    <action name="Execute">
-      <command>gexec</command>
-    </action>
-  </keybind>
-  <keybind key="W-t">
-    <action name="Execute">
-      <command>x-terminal-emulator</command>
-    </action>
-  </keybind>
-  <keybind key="A-F1">
-    <action name="Execute">
-      <command>x-terminal-emulator</command>
-    </action>
-  </keybind>
-  <keybind key="W-c">
-    <action name="Execute">
-      <command>osd_clock</command>
-    </action>
-  </keybind>
-  <keybind key="W-v">
-    <action name="Execute">
-      <command>copyq_paste</command>
-    </action>
-  </keybind>
-  <keybind key="Print">
-    <action name="Execute">
-      <command>copyq_screenshot</command>
-    </action>
-  </keybind>
-  
   <!--  HELP  -->
   <keybind key="W-h">
     <keybind key="h">
@@ -636,55 +643,55 @@
        switching due to hitting the edge of the screen -->
 
   <context name="Frame">
-    <mousebind button="A-Left" action="Click">
+    <mousebind button="W-Left" action="Click">
       <action name="Focus"/>
       <action name="Raise"/>
       <action name="Unshade"/>
     </mousebind>
-    <mousebind button="A-Left" action="Drag">
+    <mousebind button="W-Left" action="Drag">
       <action name="Move"/>
     </mousebind>
-    <mousebind button="A-W-Left" action="Press">
+    <mousebind button="W-A-Left" action="Press">
       <action name="ShowMenu">
         <menu>client-menu</menu>
       </action>
     </mousebind>
 
-    <mousebind button="A-Right" action="Press">
+    <mousebind button="W-Right" action="Press">
       <action name="Focus"/>
     </mousebind>
-    <mousebind button="A-Right" action="Drag">
+    <mousebind button="W-Right" action="Drag">
       <action name="Resize"/>
     </mousebind> 
-    <mousebind button="A-W-Right" action="Press">
+    <mousebind button="W-A-Right" action="Press">
       <action name="ShowMenu">
         <menu>client-menu</menu>
       </action>
     </mousebind>
  
-    <mousebind button="A-Middle" action="Press">
+    <mousebind button="W-Middle" action="Press">
       <action name="Lower"/>
       <action name="FocusToBottom"/>
       <action name="Unfocus"/>
     </mousebind>
 
-    <mousebind button="A-Up" action="Click">
+    <mousebind button="W-Up" action="Click">
       <action name="GoToDesktop"><to>previous</to></action>
     </mousebind>
-    <mousebind button="A-Down" action="Click">
+    <mousebind button="W-Down" action="Click">
       <action name="GoToDesktop"><to>next</to></action>
     </mousebind>
 
-    <mousebind button="A-W-Up" action="Click">
+    <mousebind button="W-A-Up" action="Click">
       <action name="SendToDesktop"><to>previous</to><follow>yes</follow></action>
     </mousebind>
-    <mousebind button="A-W-Down" action="Click">
+    <mousebind button="W-A-Down" action="Click">
       <action name="SendToDesktop"><to>next</to><follow>yes</follow></action>
     </mousebind>
-    <mousebind button="A-S-W-Up" action="Click">
+    <mousebind button="W-A-S-Up" action="Click">
       <action name="SendToDesktop"><to>previous</to><follow>no</follow></action>
     </mousebind>
-    <mousebind button="A-S-W-Down" action="Click">
+    <mousebind button="W-A-S-Down" action="Click">
       <action name="SendToDesktop"><to>next</to><follow>no</follow></action>
     </mousebind>
   </context>
@@ -870,7 +877,19 @@
       <action name="Unshade"/>
     </mousebind>
     <mousebind button="Left" action="Click">
-      <action name="Close"/>
+      <action name="If">
+        <!-- disable close for thunderbird due to birdtray systray support -->
+        <query>
+          <class>thunderbird-default</class>
+          <role>3pane</role>
+        </query>
+        <then>
+          <action name="Iconify"/>
+        </then>
+        <else>
+          <action name="Close"/>
+        </else>
+      </action>
     </mousebind>
   </context>
 
@@ -882,10 +901,10 @@
       <action name="GoToDesktop"><to>next</to></action>
     </mousebind>
 
-    <mousebind button="A-Up" action="Click">
+    <mousebind button="W-Up" action="Click">
       <action name="GoToDesktop"><to>previous</to></action>
     </mousebind>
-    <mousebind button="A-Down" action="Click">
+    <mousebind button="W-Down" action="Click">
       <action name="GoToDesktop"><to>next</to></action>
     </mousebind>
 
@@ -916,10 +935,10 @@
     <mousebind button="Down" action="Click">
       <action name="GoToDesktop"><to>next</to></action>
     </mousebind>
-    <mousebind button="A-Up" action="Click">
+    <mousebind button="W-Up" action="Click">
       <action name="GoToDesktop"><to>previous</to></action>
     </mousebind>
-    <mousebind button="A-Down" action="Click">
+    <mousebind button="W-Down" action="Click">
       <action name="GoToDesktop"><to>next</to></action>
     </mousebind>
   </context>
@@ -1049,18 +1068,15 @@
 
   # end of the example
 -->
-	<application class="Grun">
-		<position force="yes">
-			<x>center</x>
-			<y>center</y>
-		</position>
-	</application>
-	<application title="Dragon's Games Engine: OGRE 3D">
-		<position force="yes">
-			<x>-0</x>
-			<y>0</y>
-		</position>
-	</application>
+    <application class="Grun">
+      <position force="yes">
+        <x>center</x>
+        <y>center</y>
+      </position>
+    </application>
+    <application class="thunderbird-default" role="3pane">
+      <maximized>true</maximized>
+    </application>
 </applications>
 
 </openbox_config>

@@ -34,7 +34,7 @@ ViewPropsMode=ManualOrGlobal
 ViewPropsTimestamp=2015,9,6,22,5,52
 
 [IconsMode]
-PreviewSize=224
+PreviewSize=240
 
 [InformationPanel]
 dateFormat=ShortFormat
@@ -43,12 +43,6 @@ dateFormat=ShortFormat
 Places Icons Auto-resize=false
 Places Icons Static Size=22
 listViewIconSize=16
-
-[KPropertiesDialog]
-1920x1080 screen: Height=466
-1920x1080 screen: Width=432
-2 screens: Height=622
-2 screens: Width=481
 
 [MainWindow][Toolbar mainToolBar]
 ToolButtonStyle=IconOnly
@@ -62,9 +56,8 @@ ConfirmRenameFileType=false
 [PreviewSettings]
 Plugins=blenderthumbnail,djvuthumbnail,imagethumbnail,jpegthumbnail,windowsimagethumbnail,gsthumbnail,svgthumbnail,textthumbnail,ffmpegthumbs,webarchivethumbnail
 
-[SettingsDialog]
-Height 1080=460
-Width 1920=578
+[Search]
+Location=Everywhere
 
 [Toolbar mainToolBar]
 ToolButtonStyle=IconOnly

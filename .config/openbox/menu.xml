@@ -36,10 +36,10 @@ SPDX-License-Identifier: MIT
   </menu>
   <menu id="system" title="System" label="System">
     <item label="Reboot">
-	    <action name="Execute"><execute>sudo /sbin/shutdown -r now</execute></action>
+      <action name="Execute"><execute>sudo /sbin/shutdown -r now</execute></action>
     </item>
     <item label="Shutdown">
-	    <action name="Execute"><execute>sudo /sbin/shutdown -h now</execute></action>
+      <action name="Execute"><execute>sudo /sbin/shutdown -h now</execute></action>
     </item>
   </menu>
 </menu>

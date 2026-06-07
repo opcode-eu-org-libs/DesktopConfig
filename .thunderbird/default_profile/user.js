@@ -1,0 +1,51 @@
+user_pref("intl.date_time.pattern_override.date_short", "yyyy-MM-dd (EEE)");
+user_pref("intl.date_time.pattern_override.time_short", "HH:mm:ss z");
+user_pref("mail.ui.display.dateformat.today", 2);
+user_pref("intl.locale.requested", "pl,en-US");
+user_pref("mail.showCondensedAddresses", false);
+user_pref("mail.tabs.drawInTitlebar", false);
+user_pref("mail.threadpane.listview", 1);
+user_pref("mail.threadpane.table.horizontal_scroll", true);
+user_pref("mail.biff.play_sound", false);
+user_pref("mail.biff.show_alert", false);
+user_pref("mail.compose.big_attachments.notify", false);
+user_pref("mail.default_send_format", 1);
+user_pref("mail.displayname.version", 7);
+user_pref("mail.openMessageBehavior", 0);
+user_pref("mail.uidensity", 0);
+user_pref("mail.prompt_purge_threshold", false);
+user_pref("spellchecker.dictionary", "en-US,pl-PL");
+user_pref("toolbar.unifiedtoolbar.buttonstyle", 1);
+user_pref("mailnews.default_sort_order", 1);
+user_pref("mailnews.start_page.enabled", false);
+user_pref("widget.gtk.overlay-scrollbars.enabled", false);
+user_pref("network.cookie.cookieBehavior", 2);
+
+user_pref("mail.account.account1.server", "server1");
+user_pref("mail.accountmanager.localfoldersserver", "server1");
+user_pref("mail.server.server1.type", "none");
+user_pref("mail.server.server1.userName", "nobody");
+user_pref("mail.server.server1.directory-rel", "[ProfD]Mail/LocalFolders");
+user_pref("mail.server.server1.hostname", "LocalFolders");
+user_pref("mail.server.server1.name", "LocalFolders");
+
+user_pref("mail.identity.default.archive_enabled", false);
+user_pref("mail.identity.default.compose_html", false);
+user_pref("mail.identity.default.reply_on_top", 0);
+user_pref("mail.identity.default.fcc", true);
+user_pref("mail.identity.default.fcc_folder_picker_mode", "1");
+user_pref("mail.identity.default.doBcc", true);
+user_pref("mail.identity.default.doCc", true);
+user_pref("mail.identity.default.auto_quote", true);
+user_pref("mail.server.default.check_all_folders_for_new", true);
+// user_pref("mail.server.default.offline_download", false);
+user_pref("mail.server.default.spamLevel", 0);
+
+user_pref("mail.identity.id1.archive_enabled", false);
+user_pref("mail.identity.id1.compose_html", false);
+user_pref("mail.identity.id1.reply_on_top", 0); // WARNING: this is override to `1` while setup account and need to be set manually in prefs.js
+user_pref("mail.identity.id1.fcc", true);
+user_pref("mail.identity.id1.fcc_folder_picker_mode", "1");
+user_pref("mail.identity.id1.doBcc", true);
+user_pref("mail.identity.id1.doCc", true);
+user_pref("mail.identity.id1.auto_quote", true);

@@ -29,40 +29,40 @@ exec_tmux_choose_session() {
 	if ! (which whiptail >& /dev/null && which tmux >& /dev/null); then
 		return
 	fi
-	if sesions=`tmux list-sessions 2> /dev/null`; then
-		TMP_FILE=`mktemp /tmp/tmux_choose_session.XXXXX`
 
-		sesions=`echo "$sesions" | tr -d '"'"'" | sed -e 's#^\([A-Za-z0-9]*\): #\1 "#' -e 's#$#"#'`
-		dialog_opt1='--menu "tmux is running - choose tmux session:" 0 0 0 _NEW_SES_ "start new tmux sesion" _NO_TMUX_ "start shell instand tmux"'
-		dialog_opt2=''
-		eval whiptail $dialog_opt1 $sesions $dialog_opt2 2> "$TMP_FILE"
-		if [ $? -ne 0 ]; then
-			exit
-		fi
+	TMP_FILE=`mktemp /tmp/tmux_choose_session.XXXXX`
 
-		session=`cat "$TMP_FILE"`
-		rm -f "$TMP_FILE"
-
-		case $session in
-			_NEW_SES_)
-				exec tmux
-				;;
-			_NO_TMUX_)
-				unset sesions TMP_FILE dialog_opt1 dialog_opt2
-				clear
-				;;
-			*)
-				exec tmux attach-session -t $session
-				;;
-		esac
-	else
-		exec tmux
+	sesions=$(tmux list-sessions 2> /dev/null | tr -d '"'"'" | sed -E -e 's#^([^:]+): (.*)#"\1" "\2"#')
+	dialog_opt1='--menu "tmux is running - choose tmux session:" 0 0 0 _NEW_SES_ "start new tmux sesion" _NO_TMUX_ "start shell instand tmux"'
+	dialog_opt2=''
+	eval whiptail $dialog_opt1 $sesions $dialog_opt2 2> "$TMP_FILE"
+	if [ $? -ne 0 ]; then
+		exit
 	fi
+
+	session=`cat "$TMP_FILE"`
+	rm -f "$TMP_FILE"
+	case $session in
+		_NEW_SES_)
+			eval exec tmux new-session $(env | sed -E -e 's#"#\\"#g' -e 's#^([^=]+)=(.*)# -e "\1"="\2"#')
+			# NOTE: sed preprocessing + eval for support variables with spaces, quotes, etc like
+			#       export XXX0="a b c" XXX1="a='a bc'" XXX2="a=\'abc\'" XXX3="a=\"b" XXX4="a;b\;c"
+			;;
+		_NO_TMUX_)
+			unset sesions TMP_FILE dialog_opt1 dialog_opt2
+			clear
+			;;
+		*)
+			exec tmux attach-session -t $session
+			;;
+	esac
 }
 
-parent=`tr '\0' '\n' < /proc/$PPID/cmdline | head -n1`
-if echo $parent | egrep '^((/usr)?/bin/)?(xterm|konsole|xfce4-terminal|login)' > /dev/null; then
-	exec_tmux_choose_session
+if [[ $- != *c* ]]; then
+	parent=`tr '\0' '\n' < /proc/$PPID/cmdline | head -n1`
+	if echo $parent | egrep '^((/usr)?/bin/)?(xterm|konsole|xfce4-terminal|login)' > /dev/null; then
+		exec_tmux_choose_session
+	fi
 fi
 
 

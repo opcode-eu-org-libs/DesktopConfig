@@ -183,30 +183,9 @@ RunPrefix=
 SetEditor=false
 
 [MainWindow]
-1920x1080 screen: Height=613
-1920x1080 screen: Width=1152
 1920x1080 screen: Window-Maximized=true
-2 screens: Height=991
-2 screens: Width=905
-2 screens: Window-Maximized=true
-:0.0 Height 1080=1061
-:0.0 Width 1920=1920
-HDMI-A-0 DVI-D-0 Height 1080=1009
-HDMI-A-0 DVI-D-0 Width 1920=1920
-HDMI-A-0 DVI-D-0 Window-Maximized 1920x1080=true
-HDMI-A-0 DVI-D-0 XPosition=0
-HDMI-A-0 DVI-D-0 YPosition=19
-HDMI-A-0 Height 1080=1009
-HDMI-A-0 Width 1920=1920
-HDMI-A-0 Window-Maximized 1920x1080=true
-HDMI-A-0 XPosition=0
-HDMI-A-0 YPosition=19
-Height 1080=926
-Height 600=529
 State=AAAA/wAAAAD9AAAAAAAAB4AAAAOkAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
 ToolBarsMovable=Disabled
-Width 1920=1386
-Width 800=800
 
 [MainWindow][Toolbar mainToolBar]
 IconSize=32

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=gexec
+Exec=rofi_run.sh
 Icon=fbpanel-run
 Name=Run ...
 Categories=LXPANEL
