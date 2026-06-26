@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-godot-project">
+    <comment>(removed, see application/x-godot-project-custom)</comment>
+    <glob-deleteall/>
+  </mime-type>
+  <mime-type type="application/x-godot-project-custom">
+    <comment>Godot Engine project</comment>
+    <icon name="application-x-godot-project"/>
+    <glob pattern="project.godot"/>
+  </mime-type>
+  <mime-type type="application/x-godot-resource">
+    <comment>Godot Engine resource</comment>
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.res"/>
+    <glob pattern="*.tres"/>
+    <magic>
+      <match type="string" value="[gd_resource " offset="0"/>
+    </magic>
+  </mime-type>
+  <mime-type type="application/x-godot-scene">
+    <comment>Godot Engine scene</comment>
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.scn"/>
+    <glob pattern="*.tscn"/>
+    <glob pattern="*.escn"/>
+    <magic>
+      <match type="string" value="[gd_scene " offset="0"/>
+    </magic>
+  </mime-type>
+  <mime-type type="application/x-godot-shader">
+    <comment>Godot Engine shader</comment>
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.gdshader"/>
+  </mime-type>
+  <mime-type type="application/x-gdscript">
+    <comment>GDScript script</comment>
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.gd"/>
+  </mime-type>
+</mime-info>

@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /bin/kate --icon text-editor "$@"

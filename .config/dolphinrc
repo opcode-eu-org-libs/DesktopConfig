@@ -13,6 +13,9 @@ RightPadding=0
 [Favorite Profiles]
 Favorites=
 
+[FoldersPanel]
+LimitFoldersPanelToHome=false
+
 [General]
 AutoExpandFolders=true
 BrowseThroughArchives=true
@@ -54,7 +57,7 @@ ToolButtonStyle=IconOnly
 ConfirmRenameFileType=false
 
 [PreviewSettings]
-Plugins=blenderthumbnail,djvuthumbnail,imagethumbnail,jpegthumbnail,windowsimagethumbnail,gsthumbnail,svgthumbnail,textthumbnail,ffmpegthumbs,webarchivethumbnail
+Plugins=blenderthumbnail,org,djvuthumbnail,ebookthumbnail,imagethumbnail,jpegthumbnail,windowsexethumbnail,windowsimagethumbnail,gsthumbnail,svgthumbnail,textthumbnail,ffmpegthumbs,webarchivethumbnail,gdk-pixbuf-thumbnailer
 
 [Search]
 Location=Everywhere

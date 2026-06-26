@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-lepton-schematic">
+    <comment>(removed, see application/x-lepton-schematic-custom)</comment>
+    <glob-deleteall/>
+    <magic-deleteall/>
+  </mime-type>
+  <mime-type type="application/x-lepton-schematic-custom">
+    <comment>Lepton EDA circuit schematic</comment>
+    <icon name="application-x-lepton-schematic"/>
+    <glob pattern="*.sch"/>
+    <magic priority="70">
+      <match value="v 201" type="string" offset="0"/>
+      <match value="v 200" type="string" offset="0"/>
+    </magic>
+  </mime-type>
+
+  <mime-type type="application/x-lepton-symbol">
+    <sub-class-of type="text/plain"/>
+    <comment>(removed, see application/x-lepton-symbol-custom)</comment>
+    <glob-deleteall/>
+    <magic-deleteall/>
+  </mime-type>
+  <mime-type type="application/x-lepton-symbol-custom">
+    <comment>Lepton EDA schematic symbol</comment>
+    <icon name="application-x-lepton-symbol"/>
+    <glob pattern="*.sym"/>
+    <magic priority="70">
+      <match value="v 201" type="string" offset="0"/>
+      <match value="v 200" type="string" offset="0"/>
+    </magic>
+  </mime-type>
+</mime-info>

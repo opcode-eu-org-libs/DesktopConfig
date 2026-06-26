@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Exec=xdotool key super+d
-Icon=preferences-system-windows
+Icon=launch-windows-list
 Name=All windows
-Categories=LXPANEL
+Categories=System

@@ -34,6 +34,8 @@ xhost +localhost
 # dameon notifications... otherwise programs may hang when trying to send them via dbus...
 systemctl --user restart xfce4-notifyd
 
+# set icon for /tmp
+[ -f /tmp/.directory ] || echo -e '[Desktop Entry]\nIcon=gnome-dev-memory' > /tmp/.directory
 
 # function for window search
 # $1 - regexp for WM_CLASS, $2 - regexp for whole line

@@ -40,31 +40,31 @@ Plugin {
     }
     menu {
       name=Actions
-      image=fbpanel-actions
+      image=system-actions-menu
       item {
-        image=fbpanel-halt
+        image=system-shutdown
         name=Shutdown
         action=sudo shutdown -h now
       }
       item {
-        image=fbpanel-reboot
+        image=system-restart
         name=Reboot
         action=sudo shutdown -r now
       }
       separator {
       }
       item {
-        image=fbpanel-screen-disable
+        image=system-disable-screen
         name=Disable Display
         action=xset dpms force off
       }
       item {
-        image=fbpanel-screen-lock
+        image=system-lock-screen
         name=Lock Display
         action=slock
       }
       item {
-        image=fbpanel-logout
+        image=system-log-out
         name=Logout
         command=logout
       }
@@ -72,11 +72,11 @@ Plugin {
     separator {
     }
     item {
-      image=fbpanel-run
+      image=system-run
       command=run
     }
     item {
-      image=fbpanel-terminal
+      image=utilities-terminal
       name=xterm
       action=xterm
     }
@@ -99,22 +99,22 @@ Plugin {
       id=org.kde.dolphin.desktop
     }
     Button {
-      id=lxpanel.calculator.desktop
+      id=launch.calculator.desktop
     }
     Button {
-      id=lxpanel.kate.desktop
+      id=org.kde.kate.desktop
     }
     Button {
       id=org.kde.konsole.desktop
     }
     Button {
-      id=lxpanel.run.desktop
+      id=launch.run.desktop
     }
     Button {
-      id=lxpanel.pavucontrol.desktop
+      id=launch.pavucontrol.desktop
     }
     Button {
-      id=lxpanel.openbox.desktop
+      id=launch.windowlist.desktop
     }
   }
 }

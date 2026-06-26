@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Exec=calculator
-Icon=fbpanel-calculator
+Icon=launch-calculator
 Name=Calculator
-Categories=LXPANEL
+Categories=Utils

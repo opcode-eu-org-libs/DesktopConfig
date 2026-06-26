@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Exec=rofi_run.sh
-Icon=fbpanel-run
+Icon=utilities-runbox
 Name=Run ...
-Categories=LXPANEL
+Categories=System
