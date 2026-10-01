@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+    <mime-type type="text/x-todo-txt">
+        <comment>Todo.txt file</comment>
+        <glob-deleteall/>
+        <glob pattern="*[-.!0-9_+@ :#]TODO[-.!0-9_+@ :#]*txt"/>
+        <glob pattern="todo.txt"/>
+    </mime-type>
+</mime-info>

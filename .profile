@@ -133,10 +133,12 @@ pdf2gray() { gs -sOutputFile="$2"  -sDEVICE=pdfwrite  -sColorConversionStrategy=
 
 # others
 alias sigrok=pulseview
+alias du-nc=ncdu
 alias y="yt-dlp --js-runtimes node --remote-components ejs:github --prefer-free-formats -f 'bv*+ba[format_note*=original]/bv*+ba/b'"
 alias yy="y -f 'bv[height<=1080]+ba[format_note*=original]/bv[height<=1080]+ba/b[height<=1080]'"
 alias yys1='yy --write-auto-subs --write-subs --sub-langs "pl-orig,pl,en-orig,en"'
 alias yys2='yy --write-auto-subs --write-subs --sub-langs "pl-orig,en-orig,en"'
+yo() { y -o "${2:-$RANDOM}.mp4" "$1"; }
 
 # journalctl with linewrap
 export SYSTEMD_LESS=FRXM

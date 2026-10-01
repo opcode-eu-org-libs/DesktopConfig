@@ -1,0 +1,442 @@
+#!/usr/bin/env python3
+# vim: sw=4
+
+
+# Slightly modified Git LFS Transfer By spr
+# from https://github.com/nogproject/git-lfs-transfer/blob/master/bin/git-lfs-standalonetransfer-ssh
+# 
+#     - added `-o LogLevel=QUIET` to ssh call to disable server banner
+#     - allow run when remote side `lfs` dir is not existed (will be created)
+#     - removed docopt dependency
+#     - removed some non-essential code (scp speed limit, redundant mkdir calls)
+
+
+# The MIT License (MIT)
+# 
+# Copyright (c) 2015--2019 Zuse Institute Berlin.
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+
+"""
+Usage:
+  git-lfs-standalonetransfer-ssh
+
+`git-lfs-standalonetransfer-ssh` is a Git LFS standalone transfer agent that
+uses SSH to copy LFS object files.  It requires at least Git LFS v2.3.1.
+It implements the LFS standalone custom transfer agent protocol using SSH for
+data transfer.  Configure it with:
+
+```
+git config lfs.customtransfer.ssh.path git-lfs-standalonetransfer-ssh
+git config lfs.<url-prefix>.standalonetransferagent ssh
+```
+
+`<url-prefix>` is a prefix of the LFS endpoint URLs for which ssh transfer
+shall be used.  To determine LFS endpoints, run `git lfs env`.  The SSH path of
+the remote repository is inferred from the Git remote.  The remote URL must
+have format `ssh://<host>/<abspath>`.  Example:
+
+```
+remote.origin.url=ssh://files.example.org//data/git/repo
+lfs.https://files.example.org//data/git/.standalonetransferagent=ssh
+```
+
+The implementation has been developed based on Git LFS version 2.3.1,
+<https://github.com/git-lfs/git-lfs/blob/v2.3.1/docs/custom-transfers.md>.
+"""
+
+from os import getpid, environ
+from os.path import join as pjoin
+from subprocess import CalledProcessError, DEVNULL, STDOUT
+from subprocess import check_output
+from sys import stdin, stderr, stdout
+from tempfile import NamedTemporaryFile
+from traceback import format_exc
+import json
+import re
+import sys
+
+E_REMOTE_URL = 11
+E_SSH_URL = 12
+
+E_PRE_UPLOAD = 21
+E_PRE_PROTOCOL = 22
+E_UPLOAD = 23
+
+E_PRE_DOWNLOAD = 31
+E_DOWNLOAD = 32
+
+logout = None  # `openLog()` sets it.
+logpid = getpid()
+
+# `config()` sets them.
+sshHost = None
+sshRepo = None
+
+
+
+# Include leading slashes in `<path>` to handle URLs like
+# `ssh://vishost/vis/...`.  Remotes must use URLs with absolute paths.
+rgxSshUrl = re.compile(r"""
+    ^
+    ssh://
+    (?P<host>[^/]+)
+    (?P<path>/.*)
+    $
+""", re.X)
+
+
+def main():
+    openLog()
+    log('started')
+    try:
+        process()
+    except Exception as err:
+        log(format_exc())
+        raise
+
+
+def openLog():
+    global logout
+    logout = open("/tmp/git-lfs-standalonetransfer-file.log", 'a')
+
+
+
+def process():
+    for line in stdin:
+        log('received {}'.format(line.strip()))
+        req = json.loads(line)
+        event = req['event']
+        if event == 'init':
+            config(req)
+        elif event == 'upload':
+            upload(req)
+        elif event == 'download':
+            download(req)
+        elif event == 'terminate':
+            exit(0)
+        else:
+            die('Invalid event `{}`.'.format(event))
+
+
+def config(req):
+    url = req.get('remote')
+    if not url:
+        msg = 'Missing Git remote.  Is Git LFS >= 2.3.1?'
+        sendInitError(E_REMOTE_URL, msg)
+        die('init failed')
+
+    if not url.startswith('ssh://'):
+        try:
+            url = gitConfig('remote.{}.url'.format(url))
+        except CalledProcessError as err:
+            msg = 'Failed to read Git remote URL: {}'.format(err)
+            sendInitError(E_REMOTE_URL, msg)
+            die('init failed')
+
+    m = rgxSshUrl.match(url)
+    if not m:
+        sendInitError(E_SSH_URL, 'failed to parse Git remote URL')
+        die('init failed')
+
+    global sshHost
+    global sshRepo
+    sshHost = m.group('host')
+    sshRepo = m.group('path')
+    log('Using ssh {} {}'.format(sshHost, sshRepo))
+
+    sendInitOk()
+
+
+def upload(req):
+    oid = req['oid']
+    size = req['size']
+    path = req['path']
+
+    try:
+        message, detail = sshPreUpload(sshHost, sshRepo, oid)
+    except RemoteError as err:
+        sendError(oid, E_PRE_UPLOAD, str(err))
+        return
+
+    if message == 'AVAILABLE':
+        log('already available {}'.format(oid))
+        sendOk(oid, size)
+        return
+    elif message == 'LINKED':
+        log('linked to alternate {} {}'.format(oid, detail))
+        sendOk(oid, size)
+        return
+    elif message == 'SEND':
+        tmppath = detail
+        try:
+            sshUpload(path, sshHost, tmppath)
+            sshPostUpload(sshHost, sshRepo, oid, tmppath)
+        except RemoteError as err:
+            sendError(oid, E_UPLOAD, str(err))
+            return
+        sendOk(oid, size)
+        return
+    else:
+        log("received: " + message + " " + detail)
+        sendError(oid, E_PRE_PROTOCOL, 'Pre-upload protocol error. ')
+
+
+def download(req):
+    oid = req['oid']
+    size = req['size']
+
+    try:
+        src = sshPreDownload(sshHost, sshRepo, oid)
+    except RemoteError as err:
+        sendError(oid, E_PRE_DOWNLOAD, str(err))
+        return
+
+    tmpdir = gitLfsTmpDir()
+    with NamedTemporaryFile(
+        mode='wb', dir=tmpdir, prefix='{}.tmp.'.format(oid), delete=False,
+    ) as fp:
+        tmp = fp.name
+    try:
+        sshDownload(sshHost, src, tmp)
+    except RemoteError as err:
+        sendError(oid, E_DOWNLOAD, str(err))
+        return
+
+    sendOk(oid, size, path=tmp)
+
+
+def gitLfsTmpDir():
+    cmd = ['git', 'rev-parse', '--git-path', 'lfs/tmp']
+    out = check_output(cmd, stdin=DEVNULL, stderr=STDOUT)
+    return out.decode('utf-8').strip()
+
+
+def gitConfig(var):
+    cmd = ['git', 'config', var]
+    out = check_output(cmd, stdin=DEVNULL, stderr=STDOUT)
+    return out.decode('utf-8').strip()
+
+
+def sshPreUpload(host, repo, oid):
+    log("sshPreUpload " + host + " " + repo)
+    return sshCall(host, shPreUpload, repo, oid).split(maxsplit=1)
+
+
+def sshUpload(path, host, dest):
+    cmd = ['scp', '-q']
+    cmd += [path, '{}:{}'.format(host, dest)]
+    try:
+        check_output(cmd, stdin=DEVNULL, stderr=STDOUT)
+    except CalledProcessError as err:
+        raise RemoteError('{}: {}'.format(host, err.output.decode('utf-8')))
+
+
+def sshDownload(host, src, dest):
+    cmd = ['scp', '-q']
+    cmd += ['{}:{}'.format(host, src), dest]
+    try:
+        check_output(cmd, stdin=DEVNULL, stderr=STDOUT)
+    except CalledProcessError as err:
+        raise RemoteError('{}: {}'.format(host, err.output.decode('utf-8')))
+
+
+def sshPostUpload(host, repo, oid, tmp):
+    return sshCall(host, shPostUpload, repo, oid, tmp)
+
+
+def sshPreDownload(host, repo, oid):
+    return sshCall(host, shPreDownload, repo, oid)
+
+
+def sshCall(host, script, *args):
+    cmd = ['ssh', '-o', 'LogLevel=QUIET', host, 'bash', '-s'] + list(args)
+    script = shLib + script
+    try:
+        out = check_output(cmd, input=script, stderr=STDOUT)
+    except CalledProcessError as err:
+        raise RemoteError('{}: {}'.format(host, err.output.decode('utf-8')))
+    return out.decode('utf-8').strip()
+
+
+class RemoteError(Exception):
+    pass
+
+
+shLib = r"""
+set -o errexit -o nounset -o pipefail -o noglob
+
+die() {
+    echo >&2 "Error: $*"
+    exit 1
+}
+""".encode('utf-8')
+
+
+shPreUpload = r"""
+repo="$1"
+oid="$2"
+
+cd "${repo}"
+cd "$(git rev-parse --git-dir)"
+
+relpath="lfs/objects/${oid:0:2}/${oid:2:2}/${oid}"
+if [ -f "${relpath}" ]; then
+    echo 'AVAILABLE -'
+    exit 0
+fi
+
+if [ "$(git config core.sharedrepository)" = '1' ]; then
+    mode='u=rwx,g=rwxs,o=-'
+else
+    mode='u=rwx,g=-,o=-'
+fi
+
+mkdir -p -m "${mode}" 'lfs/tmp'
+mkdir -p -m "${mode}" "lfs/objects/${oid:0:2}/${oid:2:2}"
+
+# Consume full input in all stages to avoid problems with broken pipe.
+(
+    cat 'objects/info/alternates' 2>/dev/null || true
+    git config --get-all lfs.weakalternate 2>/dev/null || true
+) \
+| while IFS= read -r alt; do
+    (
+        cd "${alt}" 2>/dev/null &&
+        gitdir="$(git rev-parse --git-dir 2>/dev/null)" &&
+        cd "${gitdir}" 2>/dev/null &&
+        pwd || true
+    )
+done \
+| (
+    while IFS= read -r alt; do
+        if ! [ -f "${alt}/${relpath}" ]; then
+            continue
+        fi
+        if ln "${alt}/${relpath}" "${relpath}" 2>/dev/null; then
+            printf 'LINKED %s\n' "${alt}"
+            break
+        fi
+    done
+    cat >/dev/null
+)
+
+if [ -f "${relpath}" ]; then
+    exit 0  # Must have been linked.
+fi
+
+printf 'SEND %s\n' "$(mktemp "$(pwd)/lfs/tmp/${oid}.tmp.XXXXXXXX")"
+""".encode('utf-8')
+
+
+shPostUpload = r"""
+repo="$1"
+oid="$2"
+tmp="$3"
+
+cd "${repo}"
+cd "$(git rev-parse --git-dir)"
+
+if ! [ -f "${tmp}" ]; then
+    die "Missing \`${tmp}\`."
+fi
+
+if [ -f "lfs/objects/${oid:0:2}/${oid:2:2}/${oid}" ]; then
+    rm "${tmp}"
+    exit 0
+fi
+
+if ! echo "${oid}  ${tmp}" | sha256sum -c; then
+    die "SHA256 mismatch \`${tmp}\`."
+fi
+
+# Use `a=r` for reusable readonly inode that could be linked between shared and
+# private repos.  Directory perms are sufficient to restrict access.
+chmod a=r "${tmp}"
+
+mv -f "${tmp}" "lfs/objects/${oid:0:2}/${oid:2:2}/${oid}"
+""".encode('utf-8')
+
+
+shPreDownload = r"""
+repo="$1"
+oid="$2"
+
+cd "${repo}"
+cd "$(git rev-parse --git-dir)"
+
+path="$(pwd)/lfs/objects/${oid:0:2}/${oid:2:2}/${oid}"
+
+if ! [ -f "${path}" ]; then
+    die "Missing \`${path}\`."
+fi
+
+printf '%s' "${path}"
+""".encode('utf-8')
+
+
+def send(rsp):
+    stdout.write(json.dumps(rsp) + '\n')
+    stdout.flush()
+
+
+def sendOk(oid, size, path=None):
+    log('ok {}'.format(oid))
+    send({
+        'event': 'progress', 'oid': oid,
+        'bytesSoFar': size, 'bytesSinceLast': size,
+    })
+
+    rsp = {'event': 'complete', 'oid': oid}
+    if path:
+        rsp['path'] = path
+    send(rsp)
+
+
+def sendError(oid, code, msg):
+    log('error {} {} {}'.format(oid, code, msg))
+    err = {'code': code, 'message': msg}
+    send({'event': 'complete', 'oid': oid, 'error': err})
+
+
+def sendInitError(code, msg):
+    log('error init {} {}'.format(code, msg))
+    err = {'code': code, 'message': msg}
+    send({'error': err})
+
+
+def sendInitOk():
+    send({})
+
+def log(msg):
+    if not logout:
+        return
+    logout.write('[{}] {}\n'.format(logpid, msg))
+    logout.flush()
+
+
+def die(msg):
+    log('die: {}'.format(msg))
+    print('fatal: {}'.format(msg), file=stderr)
+    exit(1)
+
+
+if __name__ == '__main__':
+    main()

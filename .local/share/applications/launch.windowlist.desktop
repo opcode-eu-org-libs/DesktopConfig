@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Exec=xdotool key super+d
-Icon=launch-windows-list
+Icon=windows-list
 Name=All windows
 Categories=System

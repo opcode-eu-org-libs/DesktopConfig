@@ -109,6 +109,7 @@ LANG=C.UTF8 LC_TIME=en_DK.UTF-8 TZ=Europe/Warsaw lxpanel &
 
 # start clipboard manager
 (
+	sleep 5
 	export -n XDG_RUNTIME_DIR
 	export -n QT_QPA_PLATFORMTHEME
 	export DBUS_SESSION_BUS_ADDRESS=disabled:
