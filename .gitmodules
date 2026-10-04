@@ -1,3 +1,9 @@
 [submodule ".config/conky"]
 	path = .config/conky
 	url = ../ConkyPanel
+[submodule ".local/share/icons/DesktopConfig/GartoonReduxUpdated"]
+	path = .local/share/icons/DesktopConfig/GartoonReduxUpdated
+	url = ../GartoonReduxUpdated
+[submodule ".local/share/icons/DesktopConfig/SvgIconSet"]
+	path = .local/share/icons/DesktopConfig/SvgIconSet
+	url = ../SvgIconSet
